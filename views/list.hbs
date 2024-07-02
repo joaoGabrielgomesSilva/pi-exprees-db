@@ -1,0 +1,27 @@
+<h1>{{title}}</h1>
+
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+      <th scope="col">matricula</th>
+      <th scope="col">data_nascimento</th>
+      <th scope="col">E-mail</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each alunos.content}}
+    <tr>
+      <th scope="row"></th>
+      <td>{{nome}}</td>
+      <td>{{matricula}}</td>
+      <td>{{data_nascimento}}</td>
+      <td>{{email}}</td>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+  {{/each}}
+</table>
+
