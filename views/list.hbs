@@ -14,7 +14,7 @@
     {{#each alunos.content}}
     <tr>
       <th scope="row"></th>
-      <td>{{nome}}</td>
+      <td><a href="/alunos/{{matricula}}">{{nome}}</a></td>
       <td>{{matricula}}</td>
       <td>{{data_nascimento}}</td>
       <td>{{email}}</td>
@@ -25,3 +25,5 @@
   {{/each}}
 </table>
 
+
+<a href="/alunos" type="bottom"> novo aluno</a>

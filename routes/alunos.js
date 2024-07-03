@@ -9,5 +9,13 @@ router.get("/", function (req, res, next) {
     };
     res.render("list", data);
 });
+router.get('/:matricula', function(req, res, next) {
+    
+    const{matricula} = req.params;
 
+    const aluno =alunos.content[matricula] ;
+    
+    
+    res.render('card' , {title:'Detalhe dos alunos',aluno});
+});
 module.exports = router;

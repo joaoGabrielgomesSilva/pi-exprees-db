@@ -6,8 +6,10 @@ router.get("/", function (req, res, next) {
     res.render("index", {
         title: "Express",
         name: "joao gbriel",
-        time: new Date(),
     });
+});
+router.get('/sobre', function(req, res, next) {
+    res.render('sobre');
 });
 
 module.exports = router;
