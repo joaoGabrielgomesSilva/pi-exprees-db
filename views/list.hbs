@@ -9,6 +9,7 @@
       <th scope="col">data_nascimento</th>
       <th scope="col">E-mail</th>
     </tr>
+    
   </thead>
   <tbody>
     {{#each alunos.content}}
@@ -18,12 +19,15 @@
       <td>{{matricula}}</td>
       <td>{{data_nascimento}}</td>
       <td>{{email}}</td>
+      <td><a href="/alunos/edit/{{matricula}}">editar</a></td>
     </tr>
     <tr>
+        
     </tr>
+  
   </tbody>
   {{/each}}
 </table>
 
 
-<a href="/alunos" type="bottom"> novo aluno</a>
+<a href="/alunos/new"> novo aluno</a>
