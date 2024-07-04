@@ -1,10 +1,26 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a >Home</a></li>
+    <li class="breadcrumb-item"><a href=""></a>alunos</li>
+    <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
+  </ol>
+</nav>
+
+
 <h1>{{title}}</h1>
 
-<ul>
-<li>{{aluno.matricula}}</li>
-<li>{{aluno.nome}}</li>
-<li>{{aluno.email}}</li>
-<li>{{aluno.data_nascimento}}</li>
 
-
-</ul>
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">{{aluno.nome}}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Matricula: </strong>  {{aluno.matricula}}</li>
+        <li class="list-group-item"><strong>E-mail: </strong>     {{aluno.email}} </li>
+        <li class="list-group-item"> <strong>Data de Nacimento: </strong>  {{aluno.data_nascimento}}</li>
+    </ul>
+    <div class="card-body">
+        <a href="#" class="btn btn-outline-primary" type="bottom">Editar<i class="bi bi-pencil-square"></i></a>
+        <a href="#" class="btn btn-outline-primary">Remover</a>
+    </div>
+</div>

@@ -30,5 +30,16 @@ router.get('/edit/:matricula', function(req, res, next) {
     res.render('form',{title:"Editar aluno", buttontext:"Salvar Alterações",aluno});
 });
 
+router.post('/create',function(req,res,next){
+    let novoAluno=req.body;
+    let matricula=novoAluno.matricula
+
+    alunos.content[matricula]= {
+        ...novoAluno,
+        matricula:Number(matricula),
+        extra:'e'
+    };
+    res.redirect('/alunos')
+})
 
 module.exports = router;
