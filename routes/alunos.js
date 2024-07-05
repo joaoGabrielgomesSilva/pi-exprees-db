@@ -30,6 +30,11 @@ router.get("/edit/:matricula", function (req, res, next) {
         aluno,
     });
 });
+router.post("/", function (req, res, next) {
+    const { body, method } = req;
+
+    res.send({ body, method });
+});
 
 router.post("/create", function (req, res, next) {
     let novoAluno = req.body;
@@ -44,11 +49,22 @@ router.post("/create", function (req, res, next) {
 });
 
 router.put("/", function (req, res, next) {
-    res.send(rq.body);
+    const { body, method } = req;
+
+    res.send({ body, method ,msg:'altera usuario'  });
 });
 
 router.delete("/", function (req, res, next) {
-    res.send(rq.body);
+    const { body, method } = req;
+
+    res.send({ body, method ,msg:'remover' });
+});
+
+
+router.post("/", function (req, res, next) {
+    const { body, metohod } = req;
+
+    res.send({body, metohod });
 });
 
 module.exports = router;
