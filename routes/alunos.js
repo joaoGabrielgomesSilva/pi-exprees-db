@@ -69,17 +69,18 @@ router.put("/:matricula", function (req, res, next) {
     // res.send({ body, method ,msg:'altera usuario'  });
 });
 
-router.delete("/", function (req, res, next) {
-    const { body, method } = req;
-
-    res.send({ body, method ,msg:'remover' });
+router.delete("/:matricula", function (req, res, next) {
+    const { matricula } = req.params;
+    delete alunos.content[matricula]
+    
+    res.redirect( 303,'/alunos');
 });
 
 
 router.post("/", function (req, res, next) {
-    const { body, metohod } = req;
+    const { matricula } = req.params;
 
-    res.send({body, metohod });
+    res.send({body, method });
 });
 
 module.exports = router;
