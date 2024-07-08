@@ -10,7 +10,10 @@ router.get("/", function (req, res, next) {
     res.render("list", data);
 });
 router.get("/new", function (req, res, next) {
-    res.render("form", { title: "Novo aluno", buttontext: "Adicionar" });
+  const{heads: labels} = alunos
+  const parametro= "create"
+  const data = {metodo: "POST" , parametro:"create" , titulo:'novo aluno' , buttonText: 'Salvar Aluno' }
+    res.render("form",data);
 });
 router.get("/:matricula", function (req, res, next) {
     const { matricula } = req.params;
@@ -21,14 +24,16 @@ router.get("/:matricula", function (req, res, next) {
 });
 router.get("/edit/:matricula", function (req, res, next) {
     const { matricula } = req.params;
-
     const aluno = alunos.content[matricula];
 
-    res.render("form", {
+    const data={
         title: "Editar aluno",
         buttontext: "Salvar Alterações",
         aluno,
-    });
+        parametro:matricula,
+        method: "PUT"
+    }
+    res.render('form',data)
 });
 router.post("/", function (req, res, next) {
     const { body, method } = req;
@@ -48,10 +53,20 @@ router.post("/create", function (req, res, next) {
     res.redirect("/alunos");
 });
 
-router.put("/", function (req, res, next) {
-    const { body, method } = req;
+router.put("/:matricula", function (req, res, next) {
+    // const { body, method } = req;
+    const { matricula } = req.params;
+    let novoAluno = req.body;
+    const aluno = alunos.content[matricula];
 
-    res.send({ body, method ,msg:'altera usuario'  });
+    alunos.content[matricula] = {
+        ...novoAluno,
+        matricula: Number(matricula),
+        extra: "e",
+    };
+    res.redirect("/alunos");
+
+    // res.send({ body, method ,msg:'altera usuario'  });
 });
 
 router.delete("/", function (req, res, next) {

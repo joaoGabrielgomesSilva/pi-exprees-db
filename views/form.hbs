@@ -9,8 +9,8 @@
 <h1>{{title}}</h1>
 
 
-<form action="/alunos/create" method="POST">
-  <input type="hidden" name="_method" value="PUT">
+<form action="/alunos/{{parametro}}" method="POST">
+  <input type="hidden" name="_method" value="{{method}}">
   <div class="mb-3">
     <label for="formGroupExampleInput" class="form-label">Nome do Aluno</label>
     <input type="text" name="nome" class="form-control" id="formGroupExampleInput" value="{{aluno.nome}}"
@@ -23,12 +23,12 @@
   </div>
   <div class="mb-3">
     <label for="formGroupExampleInput2" class="form-label">Data de Nacimento </label>
-    <input type="Date" name="data" class="form-control" id="formGroupExampleInput2" value="{{aluno.data_nascimento}}"
+    <input type="Date" name="data_nascimento" class="form-control" id="formGroupExampleInput2" value="{{aluno.data_nascimento}}"
       placeholder="Digite a data de Nacimento">
   </div>
   <div class="mb-3">
     <label for="formGroupExampleInput2" class="form-label">e-mail aluno</label>
-    <input type="email" name="eamil" class="form-control" id="formGroupExampleInput2" value="{{aluno.email}}"
+    <input type="email" name="email" class="form-control" id="formGroupExampleInput2" value="{{aluno.email}}"
       placeholder="Digite o Email do Aluno">
   </div>
   <input class="btn btn-outline-primary" type="submit" id="submit" value="{{bottonText}} Adicionar Aluno">
