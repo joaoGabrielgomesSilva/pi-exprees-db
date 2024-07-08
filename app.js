@@ -9,6 +9,8 @@ var httpMethodOverrider=require("./middlewares/http-method-overrider");
 var indexRouter = require("./routes/index");
 // var usersRouter = require('./routes/sobre');
 var alunosRouter = require("./routes/alunos");
+var apialunos = require("./routes/api/apialunos")
+
 
 var app = express();
 app.use(bodyParser.urlencoded());
@@ -30,6 +32,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 // app.use('/sobre', sobreRouter);
 app.use("/alunos", alunosRouter);
+app.use("/api/v1/alunos", apialunos);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
