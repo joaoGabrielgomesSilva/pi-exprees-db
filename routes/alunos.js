@@ -35,11 +35,6 @@ router.get("/edit/:matricula", function (req, res, next) {
     }
     res.render('form',data)
 });
-router.post("/", function (req, res, next) {
-    const { body, method } = req;
-
-    res.send({ body, method });
-});
 
 router.post("/create", function (req, res, next) {
     let novoAluno = req.body;
