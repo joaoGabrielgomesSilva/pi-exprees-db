@@ -1,13 +1,22 @@
 var express = require("express");
 var router = express.Router();
 const alunos = require("../test/mocks/alunos.json");
+const { json } = require("body-parser");
+const {localApi}= require('../config/config_axios');
+router.get("/", async function (req, res, next) {
+    // const data = {
+    //     title: "Alunos",
+    //     alunos: alunos,
+    // };
+    // res.render("list", data);
+    try {
+        const {data:alunos }= await localApi.get('/api/v1/alunos')
+        const data = {title:'Alunos' , alunos}
+        res.status(200).render('list' , data)
 
-router.get("/", function (req, res, next) {
-    const data = {
-        title: "Alunos",
-        alunos: alunos,
-    };
-    res.render("list", data);
+    } catch (error) {
+        res.json({msg: error.massage});
+    }
 });
 router.get("/new", function (req, res, next) {
   const{heads: labels} = alunos
@@ -16,9 +25,7 @@ router.get("/new", function (req, res, next) {
     res.render("form",data);
 });
 router.get("/:matricula", function (req, res, next) {
-    const { matricula } = req.params;
-
-    const aluno = alunos.content[matricula];
+    const { matricula:matricula } = 
 
     res.render("card", { title: "Detalhe dos alunos", aluno });
 });
