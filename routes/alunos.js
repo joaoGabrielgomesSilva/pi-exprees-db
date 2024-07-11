@@ -1,19 +1,19 @@
 let express = require('express');
 const { localApi } = require('../config/config_axios')
 let router = express.Router();
-let alunos = require('../test/mocks/alunos.json');
+// let alunos = require('../test/mocks/alunos.json');
 // const { route } = require('.');
+let api
 router.get('/', async function (req,res, next){
     try {
-        const {data:alunos} = await localApi.get('/api/v1/alunos')
-        const data = {title: "Alunos",alunos}
-        res.status(200).render('list',data)
+        const resposta = await localApi.get('/api/v1/alunos');
+        let alunos = resposta.data
+        const viewData = {title: 'Alunos',alunos}
+        res.status(200).render('list',viewData);
     } catch (error) {
-        res.status(400).json({msg: error.messagem})
+        res.status(400).json({ msg: error.message });
     }
-    // const Date = {title: "Alunos",alunos}
-    // res.render('list',Date)
-})
+});
 router.get('/new', function(req,res,next){
     const parametro = "create";
     res.render('form',{method: "POST",parametro, title: 'Novo Aluno', buttonText:'Adicionar'})

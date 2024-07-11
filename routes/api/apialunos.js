@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 // const { response } = require("../../app");
 const db = require("../../config/config_database");
+const { json } = require("body-parser");
 
 router.get("/", async function (req, res, next) {
     const query = "select * from alunos";
@@ -21,7 +22,7 @@ router.get("/:matricula", async function (req, res, next) {
         const data = await db.one("select * from alunos where matricula = $1", [
             matricula,
         ]);
-        res.status(200).json(alunos);
+        res.status(200).json(data);
     } catch (error) {
         res.status(400).json({ msg: error.massage });
     }
@@ -44,25 +45,39 @@ router.post("/", async function (req, res, next) {
     }
 });
 
-router.put("/:matricula", function (req, res, next) {
-    const { matricula } = req.params;
-    const query = `update alunos set nome=$2,data_nacimento=$3,email =$4  where matricula = $1`;
+router.put("/:matricula", async function (req, res, next) {
+    const  matricula  = req.params.matricula;
+    const  nome  = req.body.nome;
+    const  email  = req.body.email;
+    const  data_nascimento  = req.body.data_nascimento;
+
+const values = [matricula,nome,email,data_nascimento];
+console.log(values);
+
+const query = `update alunos set nome=$2,data_nascimento=$4,email =$3  where matricula = $1`;
+
+
     try {
-        const alunos = alunos.content[matricula];
+        const alunos = await db.any(query,values);
         res.status(200).json(alunos);
     } catch (error) {
         res.status(400).json({ msg: error.massage });
     }
-
-    // res.send({ body, method ,msg:'altera usuario'  });
 });
 
-router.delete("/:matricula", function (req, res, next) {
+router.delete("/:matricula", async function (req, res, next) {
     const { matricula } = req.params;
     const query = `delete from   alunos  where matricula = $1`;
-    delete alunos.content[matricula];
+   
 
-    res.redirect(303, "/alunos");
+
+    try {
+        const del=  await db.any(query,matricula)
+        res.status(200).json(del)
+    } catch (error) {
+        res.status(400).json({ msg: error.massage });
+    }
+    
 });
 
 module.exports = router;
