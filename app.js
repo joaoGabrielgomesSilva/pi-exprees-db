@@ -7,9 +7,9 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 
 var indexRouter = require('./routes/index');
-var alunosRouter = require('./routes/alunos');
+var alunosRouter = require('./routes/controllers/alunos');
 
-var apiAlunosRouter = require('./routes/api/apialunos');
+var apiAlunosRouter = require('./routes/api/apisalunos');
 var httpMethodOverrider = require('./middlewares/http-method-overrider');
 
 var app = express();

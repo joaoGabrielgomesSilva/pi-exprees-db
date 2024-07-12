@@ -1,5 +1,5 @@
 let express = require('express');
-const { localApi } = require('../config/config_axios')
+const { localApi } = require('../../config/config_axios')
 let router = express.Router();                                                                                                                             
 // let alunos = require('../test/mocks/alunos.json');
 // const { route } = require('.');
@@ -25,7 +25,9 @@ router.post('/', function (req, res, next) {
     res.send({body,method})
 });
 router.post('/create', async function(req,res,next){
+    const matricula= req.params.matricula
     const apiUrlcath = '/api/v1/alunos/'+ matricula
+
     let data = req.body
     try {
         await localApi.put(apiUrlcath, data)
@@ -63,17 +65,14 @@ router.get('/edit/:matricula', async function(req,res,next){
     }
 })
 router.put('/:matricula', async function (req, res, next) {
-    const apiUrlcath = '/api/v1/alunos/'+ matricula
-    const matricula = req.params.matricula
-const data= req.body 
+    const matricula  = req.params.matricula;
+    const apiUrlaPath = '/api/v1/alunos/' + matricula
+    const data = req.body
     try {
-        const response = await localApi.put(apiUrlcath, data)
-        res.redirect('/alunos')
+ await localApi.put(apiUrlaPath, data)
     } catch (error) {
-        console.error(error.massege)
+        res.json({msg: error.message})
     }
-    finally{
-        res.redirect('/alunos/'+ matricula)}
 });
 router.delete('/:matricula', async function (req, res, next) {
     const {matricula} = req.params
