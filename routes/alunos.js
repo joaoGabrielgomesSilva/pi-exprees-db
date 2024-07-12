@@ -24,15 +24,18 @@ router.post('/', function (req, res, next) {
     const {body,method} = req
     res.send({body,method})
 });
-router.post('/create', function(req,res,next){
-    const NovoAluno = req.body;
-    const matricula = NovoAluno.matricula
-    alunos.content[matricula] = {
-        ...NovoAluno,
-        matricula: Number(matricula)
+router.post('/create', async function(req,res,next){
+    const apiUrlcath = '/api/v1/alunos/'+ matricula
+    let data = req.body
+    try {
+        await localApi.put(apiUrlcath, data)
+        res.redirect('/alunos')
+    } catch (error) {
+        console.error(error.massege)
     }
-    res.redirect('/alunos');
-})
+    finally{
+        res.redirect('/alunos/')}
+});
 router.get('/:matricula',async function (req,res,next){
     const {matricula} = req.params
     
@@ -72,11 +75,17 @@ const data= req.body
     finally{
         res.redirect('/alunos/'+ matricula)}
 });
-router.delete('/:matricula', function (req, res, next) {
-    // const {body,method} = req
-    const matricula =req.params.matricula;
-    delete alunos.content[matricula]
-    res.redirect(303,'/alunos')
-    // res.send({body,method,msg: "Remover aluno"})
+router.delete('/:matricula', async function (req, res, next) {
+    const {matricula} = req.params
+    
+    try {
+        await localApi.delete('/api/v1/alunos/' + matricula)
+        res.status(200).redirect(301 , '/alunos')
+    } catch (error) {
+        res.json({msg: error.message});
+}
+finally{
+
+}
 });
 module.exports = router;
